@@ -21,10 +21,9 @@ const SearchInput = props => {
     const key = searchInputRef.current.value
     if (key && key !== '') {
       setLoadingState(true)
-      router.push({ pathname: '/search/' + key }).then(r => {
+      router.push({ pathname: '/search', query: { s: key } }).then(r => {
         setLoadingState(false)
       })
-      // location.href = '/search/' + key
     } else {
       router.push({ pathname: '/' }).then(r => {})
     }
@@ -64,12 +63,12 @@ const SearchInput = props => {
   }
 
   return (
-    <div className={'flex w-full rounded-lg ' + className}>
+    <div className={'flex w-full bg-gray-100 dark:bg-gray-800 rounded-lg border dark:border-gray-700 ' + className}>
       <input
         ref={searchInputRef}
         type="text"
         className={
-          'outline-none w-full text-sm pl-5 rounded-lg transition focus:shadow-lg dark:text-gray-300 font-light leading-10 text-black bg-gray-100 dark:bg-gray-500'
+          'outline-none w-full text-sm pl-4 pr-10 rounded-lg transition dark:text-gray-300 font-light leading-10 text-black bg-transparent'
         }
         onKeyUp={handleKeyUp}
         onCompositionStart={lockSearchInput}
@@ -77,28 +76,29 @@ const SearchInput = props => {
         onCompositionEnd={unLockSearchInput}
         placeholder={locale.SEARCH.ARTICLES}
         onChange={e => updateSearchKey(e.target.value)}
-        defaultValue={currentSearch || ''}
+        defaultValue={currentSearch || router?.query?.s || ''}
       />
 
-      <div
-        className="-ml-8 cursor-pointer  float-right items-center justify-center py-2"
-        onClick={handleSearch}
-      >
-        <i
-          className={`hover:text-black transform duration-200 text-gray-500 dark:text-gray-200 cursor-pointer fas ${
-            onLoading ? 'fa-spinner animate-spin' : 'fa-search'
-          }`}
-        />
-      </div>
-
       {showClean && (
-        <div className="-ml-12 cursor-pointer float-right items-center justify-center py-2">
+        <div className="-ml-12 cursor-pointer float-right items-center justify-center py-2 mr-2">
           <i
             className="hover:text-black transform duration-200 text-gray-400 dark:text-gray-300 cursor-pointer fas fa-times"
             onClick={cleanSearch}
           />
         </div>
       )}
+
+      <div
+        className="cursor-pointer float-right flex items-center justify-center px-4 rounded-r-lg bg-[var(--primary-color)] text-white hover:opacity-80 transition-opacity"
+        onClick={handleSearch}
+      >
+        <i
+          className={`transform duration-200 fas ${
+            onLoading ? 'fa-spinner animate-spin' : 'fa-search'
+          }`}
+        />
+        <span className="ml-2 hidden md:block">{locale.NAV.SEARCH}</span>
+      </div>
     </div>
   )
 }

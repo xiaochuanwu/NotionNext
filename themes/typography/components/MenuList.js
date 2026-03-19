@@ -46,6 +46,18 @@ export const MenuList = ({ customNav, customMenu }) => {
       name: locale.COMMON.TAGS,
       href: '/tag',
       show: siteConfig('TYPOGRAPHY_MENU_TAG', null, CONFIG)
+    },
+    {
+      icon: 'fas fa-search',
+      name: locale.NAV.SEARCH,
+      href: '/search',
+      show: true
+    },
+    {
+      icon: 'fas fa-info-circle',
+      name: locale.NAV.ABOUT,
+      href: '/about',
+      show: true
     }
   ]
 
@@ -53,9 +65,15 @@ export const MenuList = ({ customNav, customMenu }) => {
     links = links.concat(customNav)
   }
 
-  // 如果 开启自定义菜单，则覆盖 Page 生成的菜单
-  if (siteConfig('CUSTOM_MENU')) {
-    links = customMenu
+  // 如果 开启自定义菜单，则与 Page 生成的菜单合并
+  if (siteConfig('CUSTOM_MENU') && customMenu) {
+    // 过滤掉 customMenu 中已经存在的默认菜单（如归档、分类、标签），避免重复
+    const customMenuNames = customMenu.map(c => c.name)
+    const customMenuHrefs = customMenu.map(c => c.href)
+    const filteredLinks = links.filter(
+      link => !customMenuNames.includes(link.name) && !customMenuHrefs.includes(link.href)
+    )
+    links = customMenu.concat(filteredLinks)
   }
 
   if (!links || links.length === 0) {
@@ -65,7 +83,7 @@ export const MenuList = ({ customNav, customMenu }) => {
   return (
     <>
       {/* 大屏模式菜单 - 垂直排列 */}
-      <div id='nav-menu-pc' className='hidden md:flex md:flex-col md:gap-2'>
+      <div id='nav-menu-pc' className='hidden md:flex md:flex-col md:gap-3'>
         {links?.map((link, index) => (
           <MenuItemDrop key={index} link={link} />
         ))}

@@ -1,13 +1,21 @@
 import SmartLink from '@/components/SmartLink'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
+import { useSimpleGlobal } from '../index'
+import { siteConfig } from '@/lib/config'
 
 export const MenuItemDrop = ({ link }) => {
   const hasSubMenu = link?.subMenus?.length > 0
   const [show, changeShow] = useState(false)
   const router = useRouter()
+  const { searchModal } = useSimpleGlobal() || {}
 
-
+  const checkClick = (e, href) => {
+    if (href === '/search' && siteConfig('ALGOLIA_APP_ID')) {
+      e.preventDefault()
+      searchModal?.current?.openSearch()
+    }
+  }
 
   if (!link || !link.show) {
     return null
@@ -21,6 +29,7 @@ export const MenuItemDrop = ({ link }) => {
         <SmartLink
           href={link?.href}
           target={link?.target}
+          onClick={(e) => checkClick(e, link?.href)}
           className='dark:hover:text-[var(--primary-color)] dark:hover:bg-white menu-link underline decoration-2 hover:no-underline hover:bg-[#2E405B] hover:text-white text-[var(--primary-color)]  dark:text-gray-200 tracking-widest pb-1 font-bold'>
           {link?.name}
         </SmartLink>
@@ -57,7 +66,7 @@ export const MenuItemDrop = ({ link }) => {
                   <li
                     key={index}
                     className='dark:hover:bg-gray-900 tracking-widest transition-all duration-200 dark:border-gray-800 pb-3'>
-                    <SmartLink href={sLink.href} target={link?.target}>
+                    <SmartLink href={sLink.href} target={link?.target} onClick={(e) => checkClick(e, sLink.href)}>
                       <span className='dark:hover:text-[var(--primary-color)] dark:hover:bg-white menu-link underline decoration-2 hover:no-underline hover:bg-[#2E405B] hover:text-white text-[var(--primary-color)]  dark:text-gray-200 tracking-widest pb-1 font-bold'>
                         {link?.icon && <i className={sLink?.icon}> &nbsp; </i>}
                         {sLink.title}

@@ -12,6 +12,7 @@ import BlogPostBar from './components/BlogPostBar'
 import CONFIG from './config'
 import { Style } from './style'
 import Catalog from './components/Catalog'
+import SearchInput from './components/SearchInput'
 
 const AlgoliaSearchModal = dynamic(
   () => import('@/components/AlgoliaSearchModal'),
@@ -168,7 +169,14 @@ const LayoutSearch = props => {
     }
   }, [])
 
-  return <LayoutPostList {...props} />
+  return (
+    <>
+      <div className='pb-4 w-full'>
+        <SearchInput currentSearch={keyword} {...props} />
+      </div>
+      <LayoutPostList {...props} />
+    </>
+  )
 }
 
  function groupArticlesByYearArray(articles) {
