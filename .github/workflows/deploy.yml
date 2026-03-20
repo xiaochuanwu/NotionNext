@@ -2,9 +2,9 @@ name: Deploy Next.js site to Server
 
 on:
   push:
-    branches: ["main","build-test"]
-  schedule:
-    - cron: '0 * * * *'
+    branches: ["main"]
+  # schedule:
+  #   - cron: '0 * * * *'
   workflow_dispatch:
 
 jobs:
