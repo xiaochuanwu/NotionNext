@@ -15,11 +15,19 @@ const BLOG = {
   APPEARANCE: process.env.NEXT_PUBLIC_APPEARANCE || 'light', // ['light', 'dark', 'auto'], // light 日间模式 ， dark夜间模式， auto根据时间和主题自动夜间模式
   APPEARANCE_DARK_TIME: process.env.NEXT_PUBLIC_APPEARANCE_DARK_TIME || [18, 6], // 夜间模式起至时间，false时关闭根据时间自动切换夜间模式
 
+<<<<<<< HEAD
   AUTHOR: process.env.NEXT_PUBLIC_AUTHOR || 'Wu Zongkun',
   BIO: process.env.NEXT_PUBLIC_BIO || 'Under the spreading chestnut tree, I sold you and you sold me.',
   LINK: process.env.NEXT_PUBLIC_LINK || 'https://adamwoo.me',
   KEYWORDS: process.env.NEXT_PUBLIC_KEYWORD || 'Wu Zongkun, 博客',
   BLOG_FAVICON: process.env.NEXT_PUBLIC_FAVICON || '/public/favicon.ico', // blog favicon 配置, 默认使用 /public/favicon.ico，支持在线图片，如 https://img.imesong.com/favicon.png
+=======
+  AUTHOR: process.env.NEXT_PUBLIC_AUTHOR || 'Yozuru',
+  BIO: process.env.NEXT_PUBLIC_BIO || '在世界中心呼唤爱的野兽。',
+  LINK: process.env.NEXT_PUBLIC_LINK || 'https://yozuru.cn',
+  KEYWORDS: process.env.NEXT_PUBLIC_KEYWORD || 'Yozuru, 博客',
+  BLOG_FAVICON: process.env.NEXT_PUBLIC_FAVICON || '/favicon.ico', // blog favicon 配置, 默认使用 /public/favicon.ico，支持在线图片，如 https://img.imesong.com/favicon.png
+>>>>>>> d0074729090c7f37a19842319c4606997e6e8400
   BEI_AN: process.env.NEXT_PUBLIC_BEI_AN || '', // 备案号 闽ICP备XXXXXX
   BEI_AN_LINK: process.env.NEXT_PUBLIC_BEI_AN_LINK || '', // 备案查询链接，如果用了萌备等备案请在这里填写
   BEI_AN_GONGAN: process.env.NEXT_PUBLIC_BEI_AN_GONGAN || '', // 公安备案号，例如 '浙公网安备3xxxxxxxx8号'
