@@ -55,6 +55,7 @@ export const BlogItem = props => {
                   href={`/archive#${formatDateFmt(post?.publishDate, 'yyyy-MM')}`}>
                   {post.date?.start_date || post.createdTime}
                 </SmartLink>
+                <TwikooCommentCount post={post} className='ml-1' />
               </span>
             </div>
 
